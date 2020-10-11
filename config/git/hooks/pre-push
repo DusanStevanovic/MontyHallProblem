@@ -7,15 +7,6 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1;
 }
 
-run_yarn() {
-  if command_exists winpty && test -t 1; then
-    # workaround yarn bug on Windows, see https://github.com/yarnpkg/yarn/issues/2998
-    yarn --non-interactive </dev/tty $1
-  else
-    yarn --non-interactive $1
-  fi
-}
-
 unstash_and_exit() {
   STASHES=$(git stash list | grep "$STASH_NAME")
   if [ "$STASHES" ]; then
@@ -30,7 +21,7 @@ STASH_NAME="pre-push-$(date +%s)"
 git stash save -q --include-untracked $STASH_NAME
 
 printf "\nTesting project...\n"
-run_yarn test:coverage
+npm run test:coverage
 
 COVERAGE_EXIT="$?"
 
