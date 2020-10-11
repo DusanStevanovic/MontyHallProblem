@@ -1,5 +1,5 @@
 // @flow
-import type { SuccessObjectDataType, ErrorObjectDataType , FormObjectDataType } from '../types/index.type';
+import type { SuccessObjectInitialDataType, ErrorObjectDataType , FormObjectDataType } from '../types/index.type';
 
 export const initialErrorObject: ErrorObjectDataType = {
   error: false,
@@ -12,7 +12,7 @@ export const initialFormObject: FormObjectDataType = {
 };
 
 
-export const initialSuccessObject: SuccessObjectDataType = {
+export const initialSuccessObject: SuccessObjectInitialDataType = {
   success: false,
   messages: [''],
   data: {

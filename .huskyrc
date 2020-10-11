@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "pre-commit": "npm run lint && flow",
+    "commit-msg": "sh ./config/git/hooks/commit-msg $HUSKY_GIT_PARAMS",
+    "prepush": "sh ./config/git/hooks/pre-push"
+  }
+}

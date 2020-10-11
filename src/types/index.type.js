@@ -4,22 +4,28 @@ export type GamesItemsDataType = $ReadOnly<{
   name: string,
 }>;
 
-export type DataDataType = $ReadOnly<{
+export type DataDataType = {|
   win: number,
   lose: number,
   withChanging: boolean,
   numberOfGames: number,
-}>;
+|};
 
 export type MessagesDataType = { message: Array<string> };
 
-export type SuccessObjectDataType = $ReadOnly<{
+export type SuccessObjectDataType = {|
   successObject: {
     success: boolean,
     messages: Array<string>,
     data: DataDataType,
   }
-}>;
+|};
+
+export type SuccessObjectInitialDataType = {|
+  success: boolean,
+  messages: Array<string>,
+  data: DataDataType,
+|};
 
 export type ErrorObjectDataType = $ReadOnly<{
   error: boolean,

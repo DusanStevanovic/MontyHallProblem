@@ -1,0 +1,15 @@
+#!/bin/bash
+RED='\033[0;31m' #Color Red
+NC='\033[0m' # No Color
+
+COMMIT_MESSAGE=`cat $1`
+BRANCH_NAME=$(git branch | grep \* | cut -d ' ' -f2)
+JIRA_ID=$(echo "$BRANCH_NAME" | grep -Eo "[A-Z]{3,4}-\d{1,5}")
+
+if [[ ! -z $JIRA_ID && ! $COMMIT_MESSAGE =~ $JIRA_ID ]]; then
+    echo "${RED} Invalid Commit message format ${NC}"
+    echo "${RED} Commit message should contain's JIRA-ID, and message should have following format: ${NC}"${JIRA_ID}': This is a commit example message'
+    exit 1
+else
+  exit 0
+fi
