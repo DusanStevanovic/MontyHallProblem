@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["@imaginary-cloud/react", "prettier", "plugin:flowtype/recommended"],
+  "plugins": ["prettier", "flowtype"],
+  "rules": {
+    "semi": [2, "always"],
+    "prettier/prettier": 0,
+    "no-console": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-param-reassign": 0
+  }
+}

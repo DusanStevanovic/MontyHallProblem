@@ -1,0 +1,44 @@
+#!/bin/bash
+
+STARTTIME=`date +%s`
+printf "\n$(date +%T) Pre-push starting\n"
+
+command_exists() {
+  command -v "$1" >/dev/null 2>&1;
+}
+
+run_yarn() {
+  if command_exists winpty && test -t 1; then
+    # workaround yarn bug on Windows, see https://github.com/yarnpkg/yarn/issues/2998
+    yarn --non-interactive </dev/tty $1
+  else
+    yarn --non-interactive $1
+  fi
+}
+
+unstash_and_exit() {
+  STASHES=$(git stash list | grep "$STASH_NAME")
+  if [ "$STASHES" ]; then
+    printf "\nUnstashing files...\n"
+    git stash pop -q
+  fi
+  exit $1
+}
+
+printf "\nStashing...\n"
+STASH_NAME="pre-push-$(date +%s)"
+git stash save -q --include-untracked $STASH_NAME
+
+printf "\nTesting project...\n"
+run_yarn test:coverage
+
+COVERAGE_EXIT="$?"
+
+if [ "${COVERAGE_EXIT}" != 0 ]; then
+  printf "\n\033[41mTESTS FAILED:\033[0m Fix tests errors and/or increase coverage and try again\n"
+  unstash_and_exit ${COVERAGE_EXIT}
+fi
+
+
+EMDTIME=`date +%s`
+printf "\n$(date +%T) Pre-push done,it took $((EMDTIME-STARTTIME)) seconds\n"
