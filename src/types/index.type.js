@@ -14,14 +14,6 @@ export type DataDataType = {|
 export type MessagesDataType = { message: Array<string> };
 
 export type SuccessObjectDataType = {|
-  successObject: {
-    success: boolean,
-    messages: Array<string>,
-    data: DataDataType,
-  }
-|};
-
-export type SuccessObjectInitialDataType = {|
   success: boolean,
   messages: Array<string>,
   data: DataDataType,
@@ -36,3 +28,12 @@ export type FormObjectDataType = $ReadOnly<{
   radio: string,
   combinations: number,
 }>;
+
+export type FormDataType = {| 
+  onChange: any, 
+  formData: {| 
+    radio: string, 
+    combinations: number 
+  |}, 
+  sendForm: any 
+|};

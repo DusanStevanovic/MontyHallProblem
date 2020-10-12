@@ -19,13 +19,31 @@
   "eslintConfig": {
     "extends": "@imaginary-cloud/react"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "jsx",
+      "js",
+      "json"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/test/setupTestFramework.js",
+    "modulePaths": [
+      "<rooDir>/node_modules"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/"
+    ]
+  },
   "prettier": "@imaginary-cloud/prettier-config",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "@babel/polyfill": "^7.11.5"
+    "@babel/polyfill": "^7.11.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "@material-ui/core": "^4.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -33,6 +51,7 @@
     "@babel/preset-flow": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@imaginary-cloud/eslint-config-react": "^1.0.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.5.2",
     "babel-loader": "^8.1.0",

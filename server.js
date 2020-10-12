@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 9999;
 const bodyParser = require('body-parser');
 const gameItems = require('./gameItems.json');
-const { getRandomNumber, accumulateGameOutcome } = require('./src/util');
+const { getRandomNumber, accumulateGameOutcome } = require('./src/util/backendLogic');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,6 +26,11 @@ app.post('/api/startgame', (req, res) => {
   if (!combinations || Number(combinations) <= 0) {
     console.log(`Error: ${errorObj.messages.join('\n')}`);
     errorObj.messages.push('Please add number of combinations that is not 0');
+  };
+
+  if (Number(combinations) >= 10000000) {
+    console.log(`Error: ${errorObj.messages.join('\n')}`);
+    errorObj.messages.push(`Hmmm not really realistic, won't you say ?`);
   };
 
   if (errorObj.messages.length) {
@@ -73,7 +78,7 @@ app.post('/api/startgame', (req, res) => {
   return res.status(200).json({
     success: true,
     messages: [
-      `Succes !! It's done ! See results for ${combinations} combinations, and ${
+      `Succes !! It's done ! See results for ${combinations === '1' ? `1 combination` : `${combinations} combinations`}, and ${
         radio === 'changeyes' ? 'with changing doors' : 'without changing doors'
       }`,
     ],
